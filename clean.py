@@ -8,14 +8,15 @@ data.columns
 data.dtypes
 df = data
 
-#dropping all Columns not involved in analysis (wight, payercode)
-# see DD for reason why
-data = data.drop(columns=['weight','payer_code'])
+#dropping all Columns not involved in analysis (wight, payercode, examide, citoglipton)
+#see DD for reason why
+data = data.drop(columns=['weight','payer_code', 'examide', 'citoglipton'])
 
 #race 
 #Assigned each distinct value with a numerical value (See DD for changes)
 #Categorical-nominal
-race_list = {'?': 0, 'AfricanAmerican': 1, 
+race_list = {'?': 0, 
+             'AfricanAmerican': 1, 
              'Asain': 2,
              'Caucasian': 3,
              'Hispanic': 4,
@@ -24,7 +25,7 @@ data['race'] = data['race'].map(race_list)
 print(data.race)
 
 #gender
-#Assigned Female/Male Unknown/invalid as 0,1,2 respectfully, since invalid would be useful for analysis
+#Assigned Female/Male Unknown/invalid as 0,1,2 respectfully
 #Categorical-nominal
 gender_list = {'Unknown/Invalid': 0,
                'Female': 1,
@@ -101,13 +102,13 @@ Med_list = {'?': 0,
             'Psychiatry-Addictive': 49,
             'Psychiatry-Child/Adolescent': 50,
             'Psychology': 51,
-            'Pulmonolgy': 52,
+            'Pulmonology': 52,
             'Radiologist': 53,
             'Radiology': 54,
             'Resident': 55,
             'Rheumatology': 56,
             'Speech': 57,
-            'SportsMediicine': 58,
+            'SportsMedicine': 58,
             'Surgeon': 59,
             'Surgery Cardiovascular': 60,
             'Surgery-Cardiovascular': 61,
@@ -125,4 +126,171 @@ Med_list = {'?': 0,
 data['medical_specialty'] = data['medical_specialty'].map(Med_list)
 print(data['medical_specialty'])
 
-#
+### PATIENTS health Measurements ######
+#See DD for data information, Units, and any changes made
+#Max_glu_serum
+max_list = {'None': 0,
+            'Norm': 140,
+            '>200': 200,
+            '>300': 300}
+data['max_glu_serum'] = data['max_glu_serum'].map(max_list)
+print(data['max_glu_serum'])
+
+#A1Cresult
+a1c_list = {'None': 0, 
+            'Norm': 4.5, 
+            '>7': 7, 
+            '>8': 8}
+data['A1Cresult'] = data['A1Cresult'].map(a1c_list)
+
+#Metformin 
+metformin_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['metformin'] = data['metformin'].map(metformin_list)
+
+#Repaglinide
+repaglinide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['repaglinide'] = data['repaglinide'].map(repaglinide_list)
+
+#Nateglinide
+nateglinide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['nateglinide'] = data['nateglinide'].map(nateglinide_list)
+
+#Chlorpropamide
+chlorpropamide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['chlorpropamide'] = data['chlorpropamide'].map(chlorpropamide_list)
+
+#Glimepiride
+glimepiride_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['glimepiride'] = data['glimepiride'].map(glimepiride_list)
+
+#Acetohexamide
+acetohexamide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['acetohexamide'] = data['acetohexamide'].map(acetohexamide_list)
+
+#Glipizide
+glipizide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['glipizide'] = data['glipizide'].map(glipizide_list)
+
+#Glyburide
+glyburide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['glyburide'] = data['glyburide'].map(glyburide_list)
+
+#Tolbutamide
+tolbutamide_list = {'No': 0, 
+                    'Steady': 1}
+data['tolbutamide'] = data['tolbutamide'].map(tolbutamide_list)
+
+#Pioglitazone
+pioglitazone_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['pioglitazone'] = data['pioglitazone'].map(pioglitazone_list)
+
+#Rosiglitazone
+rosiglitazone_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['rosiglitazone'] = data['rosiglitazone'].map(rosiglitazone_list)
+
+#Acarbose
+acarbose_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['acarbose'] = data['acarbose'].map(acarbose_list)
+
+#Miglitol
+miglitol_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['miglitol'] = data['miglitol'].map(miglitol_list)
+
+#Troglitazone
+troglitazone_list = {'No': 0, 
+                     'Steady': 1}
+data['troglitazone'] = data['troglitazone'].map(troglitazone_list)
+
+#Tolazamide
+tolazamide_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['tolazamide'] = data['tolazamide'].map(tolazamide_list)
+
+#Insulin
+insulin_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['insulin'] = data['insulin'].map(insulin_list)
+
+#Glyburide-metformin
+glyburide_metformin_list = {'No': 0, 
+                  'Steady': 2, 
+                  'Up': 3, 
+                  'Down': 1}
+data['glyburide-metformin'] = data['glyburide-metformin'].map(glyburide_metformin_list)
+
+#Glipizide-metformin
+glipizide_metformin_list = {'No': 0, 
+                            'Steady': 1}
+data['glipizide-metformin'] = data['glipizide-metformin'].map(glipizide_metformin_list)
+
+#Glimepiride-pioglitazone
+glimepiride_pioglitazone_list = {'No': 0, 
+                                 'Steady': 1}
+data['glimepiride-pioglitazone'] = data['glimepiride-pioglitazone'].map(glimepiride_pioglitazone_list)
+
+#Metformin-rosiglitazone
+metformin_rosiglitazone_list = {'No': 0, 
+                                'Steady': 1}
+data['metformin-rosiglitazone'] = data['metformin-rosiglitazone'].map(metformin_rosiglitazone_list)
+
+#Metformin-pioglitazone
+metformin_pioglitazone_list = {'No': 0, 
+                               'Steady': 1}
+data['metformin-pioglitazone'] = data['metformin-pioglitazone'].map(metformin_pioglitazone_list)
+
+#Change
+change_list = {'No': 0, 
+               'Ch': 1}
+data['change'] = data['change'].map(change_list)
+
+#DiabetesMed
+diabetesmed_list = {'No': 0, 'Yes': 1}
+data['diabetesMed'] = data['diabetesMed'].map(diabetesmed_list)
+
+#Readmitted
+readmitted_list = {'NO': 0, '>30': 1, '<30': 2}
+data['readmitted'] = data['readmitted'].map(readmitted_list)
+
+
+#saves data
+data.to_csv('data/cleandata.csv') 
