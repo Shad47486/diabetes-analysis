@@ -11,13 +11,13 @@ df = data
 #dropping all Columns not involved in analysis (wight, payercode, examide, citoglipton)
 #see DD for reason why
 data = data.drop(columns=['weight','payer_code', 'examide', 'citoglipton'])
-
+data.info()
 #race 
 #Assigned each distinct value with a numerical value (See DD for changes)
 #Categorical-nominal
 race_list = {'?': 0, 
              'AfricanAmerican': 1, 
-             'Asain': 2,
+             'Asian': 2,
              'Caucasian': 3,
              'Hispanic': 4,
              'Other': 5}
@@ -60,7 +60,7 @@ Med_list = {'?': 0,
             'Dentistry': 7,
             'Dermatology': 8,
             'Emergency/Trauma': 9,
-            'Endocrinology/Trauma': 10,
+            'Endocrinology': 10,
             'Endocrinology-Metabolism': 11,
             'Family/GeneralPractice': 12,
             'Gastroenterology': 13,
@@ -93,7 +93,7 @@ Med_list = {'?': 0,
             'Pediatrics-InfectiousDiseases': 40,
             'Pediatrics-Neurology': 41,
             'Pediatrics-Pulmonology': 42,
-            'Perintatology': 43,
+            'Perinatology': 43,
             'PhysicalMedicineandRehabilitation': 44,
             'PhysicianNotFound': 45,
             'Podiatry': 46,
@@ -110,18 +110,18 @@ Med_list = {'?': 0,
             'Speech': 57,
             'SportsMedicine': 58,
             'Surgeon': 59,
-            'Surgery Cardiovascular': 60,
-            'Surgery-Cardiovascular': 61,
+            'Surgery-Cardiovascular': 60,
+            'Surgery-Cardiovascular/Thoracic': 61,
             'Surgery-Colon&Rectal': 62,
             'Surgery-General': 63,
             'Surgery-Maxillofacial': 64,
-            'Surgery-Neruo': 65,
+            'Surgery-Neuro': 65,
             'Surgery-Pediatric': 66,
             'Surgery-Plastic': 67,
             'Surgery-PlasticwithinHeadandNeck': 68,
             'Surgery-Thoracic': 69,
             'Surgery-Vascular': 70,
-            'SurgerySpecialty': 71,
+            'SurgicalSpecialty': 71,
             'Urology': 72}
 data['medical_specialty'] = data['medical_specialty'].map(Med_list)
 print(data['medical_specialty'])
@@ -290,6 +290,12 @@ data['diabetesMed'] = data['diabetesMed'].map(diabetesmed_list)
 #Readmitted
 readmitted_list = {'NO': 0, '>30': 1, '<30': 2}
 data['readmitted'] = data['readmitted'].map(readmitted_list)
+
+#looking to see if fields are in the correct data type
+data.info()
+#changed a1c into int after being float
+data['A1Cresult'] = data['A1Cresult'].astype('Int64')
+
 
 
 #saves data
