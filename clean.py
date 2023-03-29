@@ -294,9 +294,13 @@ data['readmitted'] = data['readmitted'].map(readmitted_list)
 #looking to see if fields are in the correct data type
 data.info()
 #changed a1c into int after being float
+data['A1Cresult'] = data['A1Cresult'].astype(int)
 data['A1Cresult'] = data['A1Cresult'].astype('Int64')
+
+
+data.count
 
 
 
 #saves data
-data.to_csv('data/cleandata.csv') 
+data.to_csv('data/cleandata.csv')
