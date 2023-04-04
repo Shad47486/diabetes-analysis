@@ -31,6 +31,8 @@ gender_list = {'Unknown/Invalid': 0,
                'Female': 1,
                'Male': 2}
 data['gender'] = data['gender'].map(gender_list)
+# removed genders that were invalid since there were only 3 values that where invalid
+data = data[data['gender'] != 0]
 gender_count = data['gender'].value_counts()
 print(data.gender)
 
