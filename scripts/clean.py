@@ -290,7 +290,7 @@ diabetesmed_list = {'No': 0, 'Yes': 1}
 data['diabetesMed'] = data['diabetesMed'].map(diabetesmed_list)
 
 #Readmitted
-readmitted_list = {'NO': 1, '>30': 1, '<30': 2}
+readmitted_list = {'NO': 0, '>30': 0, '<30': 1}
 data['readmitted'] = data['readmitted'].map(readmitted_list)
 
 #looking to see if fields are in the correct data type
