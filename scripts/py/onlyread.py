@@ -290,19 +290,20 @@ diabetesmed_list = {'No': 0, 'Yes': 1}
 data['diabetesMed'] = data['diabetesMed'].map(diabetesmed_list)
 
 #Readmitted
-readmitted_list = {'NO': 0, '>30': 0, '<30': 1}
+readmitted_list = {'<30': 1}
 data['readmitted'] = data['readmitted'].map(readmitted_list)
-
+data.dropna(inplace=True) 
+data.drop(columns=['readmitted'], inplace=True)
 #looking to see if fields are in the correct data type
 data.info()
 #changed a1c into int after being float
 data['A1Cresult'] = data['A1Cresult'].astype(int)
-data['A1Cresult'] = data['A1Cresult'].astype('Int64')
-
+data['A1Cresult'] = data['A1Cresult'].astype('int64')
+data['readmitted'] = data['readmitted'].astype(int)
+data['readmitted'] = data['readmitted'].astype('int64')
 
 data.count
 
 
-
 #saves data
-data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandata.csv')
+data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/onlyreadm.csv')

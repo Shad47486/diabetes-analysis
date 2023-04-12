@@ -297,7 +297,7 @@ data['readmitted'] = data['readmitted'].map(readmitted_list)
 data.info()
 #changed a1c into int after being float
 data['A1Cresult'] = data['A1Cresult'].astype(int)
-data['A1Cresult'] = data['A1Cresult'].astype('Int64')
+data['A1Cresult'] = data['A1Cresult'].astype('int64')
 
 
 data.count
