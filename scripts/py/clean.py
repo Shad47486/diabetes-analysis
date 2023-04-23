@@ -10,7 +10,7 @@ df = data
 
 #dropping all Columns not involved in analysis (wight, payercode, examide, citoglipton)
 #see DD for reason why
-data = data.drop(columns=['weight','payer_code', 'examide', 'citoglipton'])
+data = data.drop(columns=['weight','payer_code', 'examide', 'citoglipton', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'acetohexamide' ])
 data.info()
 #race 
 #Assigned each distinct value with a numerical value (See DD for changes)
