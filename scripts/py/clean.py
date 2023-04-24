@@ -38,22 +38,22 @@ print(data.gender)
 
 #age
 #Assigned each group as a numerical Value, for example: 0-10 = 1 and the ones going on 90-100 = 10
-age_list = {'[0-10)': 1, 
-            '[10-20)': 2, 
-            '[20-30)': 3, 
-            '[30-40)': 4, 
-            '[40-50)': 5, 
-            '[50-60)': 6, 
-            '[60-70)': 7, 
-            '[70-80)': 8, 
-            '[80-90)': 9, 
-            '[90-100)': 10}
+age_list = {'[0-10)': 10, 
+            '[10-20)': 20, 
+            '[20-30)': 30, 
+            '[30-40)': 40, 
+            '[40-50)': 50, 
+            '[50-60)': 60, 
+            '[60-70)': 70, 
+            '[70-80)': 80, 
+            '[80-90)': 90, 
+            '[90-100)': 100}
 data['age'] = data['age'].map(age_list)
 
 #medical_Speciality
 #Assigned Each distinct value as a numerical number based on alphabetical order
-Med_list = {'?': 0,
-            'AllergyandImmunology': 1,
+#Med_list = {'?': 0,
+           'AllergyandImmunology': 1,
             'Anesthesiology': 2,
             'Anesthesiology-Pediatric': 3,
             'Cardiology': 4,
@@ -125,8 +125,8 @@ Med_list = {'?': 0,
             'Surgery-Vascular': 70,
             'SurgicalSpecialty': 71,
             'Urology': 72}
-data['medical_specialty'] = data['medical_specialty'].map(Med_list)
-print(data['medical_specialty'])
+#data['medical_specialty'] = data['medical_specialty'].map(Med_list)
+#print(data['medical_specialty'])
 
 ### PATIENTS health Measurements ######
 #See DD for data information, Units, and any changes made
@@ -305,4 +305,6 @@ data.count
 
 
 #saves data
-data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandata.csv')
+#data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandata.csv')
+#not including the medical specilaties 
+data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandatav2.csv')
