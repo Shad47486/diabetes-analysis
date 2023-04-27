@@ -6,34 +6,28 @@ data = pd.read_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/diabet
 #looking at each column for any data types that may need changing to help with analysis
 data.columns
 data.dtypes
-df = data
 
 #dropping all Columns not involved in analysis (wight, payercode, examide, citoglipton)
 #see DD for reason why
-data = data.drop(columns=['weight','payer_code', 'examide', 'citoglipton', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'acetohexamide'])
+to_remove = [11, 13, 14, 19, 20, 21]
+data = data[~data['discharge_disposition_id'].isin(to_remove)]
+### removeing the not needed columns and the first row that was create
+to_remove3 = ['Unknown/Invalid']
+data = data[~data['gender'].isin(to_remove3)]
+#droppping uneeded columns
+data = data.drop(columns=['weight', 'race', 'payer_code', 'examide', 'citoglipton', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'acetohexamide'])
 data.info()
+
 #race 
 #Assigned each distinct value with a numerical value (See DD for changes)
 #Categorical-nominal
-race_list = {'?': 0, 
-             'AfricanAmerican': 1, 
-             'Asian': 2,
-             'Caucasian': 3,
-             'Hispanic': 4,
-             'Other': 5}
-data['race'] = data['race'].map(race_list)
-print(data.race)
-
 #gender
 #Assigned Female/Male Unknown/invalid as 0,1,2 respectfully
 #Categorical-nominal
-gender_list = {'Unknown/Invalid': 0,
-               'Female': 1,
-               'Male': 2}
+gender_list = {'Female': 0,
+               'Male': 1}
 data['gender'] = data['gender'].map(gender_list)
 # removed genders that were invalid since there were only 3 values that where invalid
-data = data[data['gender'] != 0]
-gender_count = data['gender'].value_counts()
 print(data.gender)
 
 #age
@@ -308,3 +302,4 @@ data.count
 #data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandata.csv')
 #not including the medical specilaties 
 data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandatav2.csv')
+#data.to_csv('C:/Users/Shad/.pyenv/PProjects/diabetes-analysis/data/cleandatav3.csv')
