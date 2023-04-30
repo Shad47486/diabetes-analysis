@@ -16,9 +16,9 @@ to_remove3 = ['Unknown/Invalid']
 data = data[~data['gender'].isin(to_remove3)]
 #droppping uneeded columns
 data = data.drop(columns=['encounter_id', 'patient_nbr', 'medical_specialty', 'weight',
-                          'payer_code','citoglipton', 'examide',
+                          'payer_code','citoglipton', 'examide', 'repaglinide',
                           'nateglinide', 'chlorpropamide',
-                          'acarbose', 'miglitol', 
+                          'acarbose', 'miglitol',  'rosiglitazone',  
                           'glyburide-metformin', 'tolazamide', 
                           'metformin-pioglitazone','metformin-rosiglitazone', 'glimepiride-pioglitazone', 
                           'glipizide-metformin', 'troglitazone', 'tolbutamide', 'acetohexamide'])
@@ -42,12 +42,12 @@ age_list = {'[0-10)': '<30',
             '[10-20)': '<30', 
             '[20-30)': '<30', 
             '[30-40)': '<30', 
-            '[40-50)': '30-60', 
-            '[50-60)': '30-60', 
-            '[60-70)': '30-60', 
-            '[70-80)': '60>', 
-            '[80-90)': '60>', 
-            '[90-100)': '60>'}
+            '[40-50)': '[40-50)', 
+            '[50-60)': '[50-60)', 
+            '[60-70)': '[60-70)', 
+            '[70-80)': '[70-80)', 
+            '[80-90)': '[80-90)', 
+            '[90-100)': '[90-100)'}
 data['age'] = data['age'].map(age_list)
 
 race_list = {'African American': 1, 
