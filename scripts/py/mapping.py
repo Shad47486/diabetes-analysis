@@ -15,7 +15,13 @@ data = data[~data['discharge_disposition_id'].isin(to_remove)]
 to_remove3 = ['Unknown/Invalid']
 data = data[~data['gender'].isin(to_remove3)]
 #droppping uneeded columns
-data = data.drop(columns=['weight', 'race', 'payer_code', 'examide', 'citoglipton', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'acetohexamide'])
+data = data.drop(columns=['encounter_id', 'patient_nbr', 'weight', 'payer_code', 'citoglipton', 'examide',
+                          'repaglinide', 'nateglinide', 'chlorpropamide',
+                          'glimepiride', 'glipizide', 'glyburide', 
+                          'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 
+                          'glyburide-metformin', 'tolazamide', 
+                          'metformin-pioglitazone','metformin-rosiglitazone', 'glimepiride-pioglitazone', 
+                          'glipizide-metformin', 'troglitazone', 'tolbutamide', 'acetohexamide'])
 data.info()
 
 #race 
@@ -134,7 +140,7 @@ print(data['max_glu_serum'])
 
 #A1Cresult
 a1c_list = {'None': 0, 
-            'Norm': 4.5, 
+            'Norm': 5, 
             '>7': 7, 
             '>8': 8}
 data['A1Cresult'] = data['A1Cresult'].map(a1c_list)
@@ -287,14 +293,69 @@ data['diabetesMed'] = data['diabetesMed'].map(diabetesmed_list)
 readmitted_list = {'NO': 0, '>30': 0, '<30': 1}
 data['readmitted'] = data['readmitted'].map(readmitted_list)
 
+readmitted_list = {'NO': "Not Readmitted", '>30': "Not Readmitted", '<30': "Readmitted"}
+data['readmitted'] = data['readmitted'].map(readmitted_list)
+
+
 #looking to see if fields are in the correct data type
 data.info()
 #changed a1c into int after being float
 data['A1Cresult'] = data['A1Cresult'].astype(int)
 data['A1Cresult'] = data['A1Cresult'].astype('int64')
 
+#diagnosis code
+#Encoding the data,
+def map_now():
+    listname = [('infections', 139),
+                ('neoplasms', (239 - 139)),
+                ('endocrine', (279 - 239)),
+                ('blood', (289 - 279)),
+                ('mental', (319 - 289)),
+                ('nervous', (359 - 319)),
+                ('sense', (389 - 359)),
+                ('circulatory', (459-389)),
+                ('respiratory', (519-459)),
+                ('digestive', (579 - 519)),
+                ('genitourinary', (629 - 579)),
+                ('pregnancy', (679 - 629)),
+                ('skin', (709 - 679)),
+                ('musculoskeletal', (739 - 709)),
+                ('congenital', (759 - 739)),
+                ('perinatal', (779 - 759)),
+                ('ill-defined', (799 - 779)),
+                ('injury', (999 - 799))]
+    
+    
+    dictcout = {}
+    count = 1
+    for name, num in listname:
+        for i in range(num):
+            dictcout.update({str(count): name})  
+            count += 1
+    return dictcout
+  
 
-data.count
+def codemap(data, codes):
+    import pandas as pd
+    namecol = data.columns.tolist()
+    for col in namecol:
+        temp = [] 
+        for num in data[col]:           
+            if ((num is None) | (num in ['unknown', '?']) | (pd.isnull(num))): temp.append('unknown')
+            elif(num.upper()[0] == 'V'): temp.append('supplemental')
+            elif(num.upper()[0] == 'E'): temp.append('injury')
+            else: 
+                lkup = num.split('.')[0]
+                temp.append(codes[lkup])           
+        data.loc[:, col] = temp               
+    return data 
+
+
+listcol = ['diag_1', 'diag_2', 'diag_3']
+codes = map_now()
+data[listcol] = codemap(data[listcol], codes)
+
+data.head()
 
 
 
