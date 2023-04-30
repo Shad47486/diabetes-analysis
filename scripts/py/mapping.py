@@ -15,10 +15,10 @@ data = data[~data['discharge_disposition_id'].isin(to_remove)]
 to_remove3 = ['Unknown/Invalid']
 data = data[~data['gender'].isin(to_remove3)]
 #droppping uneeded columns
-data = data.drop(columns=['encounter_id', 'patient_nbr', 'weight', 'payer_code', 'citoglipton', 'examide',
-                          'repaglinide', 'nateglinide', 'chlorpropamide',
-                          'glimepiride', 'glipizide', 'glyburide', 
-                          'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 
+data = data.drop(columns=['encounter_id', 'patient_nbr', 'medical_specialty', 'weight',
+                          'payer_code','citoglipton', 'examide',
+                          'nateglinide', 'chlorpropamide',
+                          'acarbose', 'miglitol', 
                           'glyburide-metformin', 'tolazamide', 
                           'metformin-pioglitazone','metformin-rosiglitazone', 'glimepiride-pioglitazone', 
                           'glipizide-metformin', 'troglitazone', 'tolbutamide', 'acetohexamide'])
@@ -38,18 +38,24 @@ print(data.gender)
 
 #age
 #Assigned each group as a numerical Value, for example: 0-10 = 1 and the ones going on 90-100 = 10
-age_list = {'[0-10)': 5, 
-            '[10-20)': 15, 
-            '[20-30)': 25, 
-            '[30-40)': 35, 
-            '[40-50)': 45, 
-            '[50-60)': 55, 
-            '[60-70)': 65, 
-            '[70-80)': 75, 
-            '[80-90)': 85, 
-            '[90-100)': 95}
+age_list = {'[0-10)': '<30', 
+            '[10-20)': '<30', 
+            '[20-30)': '<30', 
+            '[30-40)': '<30', 
+            '[40-50)': '30-60', 
+            '[50-60)': '30-60', 
+            '[60-70)': '30-60', 
+            '[70-80)': '60>', 
+            '[80-90)': '60>', 
+            '[90-100)': '60>'}
 data['age'] = data['age'].map(age_list)
 
+race_list = {'African American': 1, 
+             'Asian': 2,
+             'Caucasian': 3,
+             'Hispanic': 4, 
+             'Other': 5}
+data['race'] = data['race'].map(age_list)
 #medical_Speciality
 #Assigned Each distinct value as a numerical number based on alphabetical order
 #Med_list = {'?': 0,
